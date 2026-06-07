@@ -1,0 +1,245 @@
+{
+  "name": "TFC MIDTECH - Asistente Compliance IA",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Base de conocimiento de MIDTECH con política de seguridad, ISO 27001, GDPR artículo 32 y ENS. Utilizar esta herramienta para responder preguntas de auditoría y cumplimiento.",
+        "memoryKey": {
+          "__rl": true,
+          "mode": "list",
+          "value": "vector_store_key"
+        },
+        "includeDocumentMetadata": false
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        144,
+        96
+      ],
+      "id": "8141befe-bca6-4990-8930-05e55ab518c6",
+      "name": "RAG - Consulta Documental"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        16,
+        224
+      ],
+      "id": "eeaf81ca-3ab5-4f82-ba0e-578a2455dc0d",
+      "name": " Embeddings OpenAI (RAG)",
+      "credentials": {
+        "openAiApi": {
+          "id": "w820fL6EL0Ls5VOD",
+          "name": "OpenAi account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "repository": "https://github.com/GoodJobID1235/TFC-MIDTECH-Asistente-Compliance-IA",
+        "additionalOptions": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentGithubLoader",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        288
+      ],
+      "id": "e8d570c9-e2da-47a8-bd80-ed879b66a958",
+      "name": "Cargador Documental GitHub",
+      "credentials": {
+        "githubApi": {
+          "id": "DWWb6hqO9pUIyKOZ",
+          "name": "GitHub account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        304
+      ],
+      "id": "d4490c54-0043-496a-b5b2-96cd9aadf884",
+      "name": " Embeddings OpenAI (RAG)1",
+      "credentials": {
+        "openAiApi": {
+          "id": "w820fL6EL0Ls5VOD",
+          "name": "OpenAi account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -192,
+        112
+      ],
+      "id": "d5261492-c662-4e9d-ac60-d8779c96c841",
+      "name": " LLM OpenAI GPT-4o",
+      "credentials": {
+        "openAiApi": {
+          "id": "w820fL6EL0Ls5VOD",
+          "name": "OpenAi account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -368,
+        -80
+      ],
+      "id": "30307c7d-c97b-48a0-99eb-5087f0da5b01",
+      "name": "Chat Usuario",
+      "webhookId": "c32a1a62-9013-4ebc-ab91-7615accf0844"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Eres el asistente de compliance y ciberseguridad de MIDTECH S.A.\n\nDebes utilizar siempre la base de conocimiento disponible antes de responder.\n\nTus respuestas deben basarse en los documentos cargados en el sistema RAG. No generes respuestas genéricas si la información está disponible en la documentación.\n\nCuando sea posible:\n- Indica el documento utilizado.\n- Cita la sección relevante.\n- Diferencia claramente entre información encontrada en los documentos e información general.\n\nDebes ser capaz de:\n1. Analizar políticas de seguridad.\n2. Detectar riesgos e incumplimientos.\n3. Responder preguntas de auditoría.\n4. Proponer mejoras priorizadas.\n\nSi la información solicitada no se encuentra en la documentación disponible,\nindica claramente que no aparece en la base de conocimiento.\nNo inventes datos ni hagas suposiciones."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        -80
+      ],
+      "id": "5cc3eaf4-10e6-469b-904a-6fb29e9eb85a",
+      "name": "Asistente MIDTECH"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "memoryKey": {
+          "__rl": true,
+          "mode": "list",
+          "value": "vector_store_key"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        464,
+        48
+      ],
+      "id": "18f76300-d08e-43f6-a30b-4734c372b206",
+      "name": "RAG Indexación"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "RAG - Consulta Documental": {
+      "ai_tool": [
+        [
+          {
+            "node": "Asistente MIDTECH",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    " Embeddings OpenAI (RAG)": {
+      "ai_embedding": [
+        [
+          {
+            "node": "RAG - Consulta Documental",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cargador Documental GitHub": {
+      "ai_document": [
+        [
+          {
+            "node": "RAG Indexación",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    " Embeddings OpenAI (RAG)1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "RAG Indexación",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    " LLM OpenAI GPT-4o": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Asistente MIDTECH",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Usuario": {
+      "main": [
+        [
+          {
+            "node": "Asistente MIDTECH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Asistente MIDTECH": {
+      "main": [
+        []
+      ]
+    },
+    "RAG Indexación": {
+      "ai_tool": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f5e629fb-b3dc-4eb4-8cba-e5a08bd7bb3a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "76a704bebda779bb51a9238e23c464c2e36e96911c1d65f569134bff06356ca0"
+  },
+  "id": "rbrWxMX5kPZW4PYA",
+  "tags": []
+}
