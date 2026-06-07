@@ -45,23 +45,35 @@ n8n.
 #### Motivos
 
 - Diseño visual de flujos.
-- Integración sencilla con Google Drive.
+- Facilidad para integrar modelos de IA, repositorios documentales y sistemas RAG.
 - Automatización sin necesidad de programación compleja.
+- Posibilidad de validar y depurar cada nodo individualmente.
+- Representación gráfica clara de la arquitectura implementada.
 
----
+#### Justificación
 
-### Gestión documental
+La elección de n8n se basa en su enfoque visual y en la facilidad para construir flujos complejos mediante nodos conectados. Esto permitió desarrollar, probar y documentar el asistente de forma progresiva, facilitando además la comprensión del sistema por parte del evaluador.
 
-Google Drive.
+### Gestión documental y repositorio del proyecto
+
+GitHub.
 
 #### Motivos
 
-- Almacenamiento centralizado.
-- Facilidad para compartir documentación.
-- Integración directa con n8n.
+- Centralización de toda la documentación del proyecto.
+- Control de versiones y trazabilidad de cambios.
+- Almacenamiento de la base documental utilizada por el sistema RAG.
+- Gestión de workflows de n8n.
+- Organización de evidencias, diagramas y documentación técnica.
+- Integración con el flujo de indexación documental implementado.
 
----
+#### Justificación
 
+Aunque durante la fase inicial de diseño se valoró la utilización de Google Drive, tal y como se proponía en la documentación base del proyecto, finalmente se optó por GitHub como repositorio principal.
+
+Esta decisión permitió centralizar en una única plataforma la base documental RAG, los workflows de n8n, las evidencias, los diagramas y la documentación técnica del proyecto, aportando un mejor control de versiones y una mayor trazabilidad.
+
+La documentación final puede entregarse mediante Google Drive si así lo requiere la entidad evaluadora, sin que ello modifique la solución técnica implementada.
 ### Base de conocimiento
 
 RAG mediante embeddings e indexación semántica.
@@ -76,25 +88,53 @@ RAG mediante embeddings e indexación semántica.
 
 ## Arquitectura del sistema
 
-Usuario
+Chat Usuario
 
 ↓
 
-n8n
+Asistente MIDTECH
 
 ↓
 
-Base de conocimiento RAG
+RAG - Consulta Documental
 
 ↓
 
-GPT-4o
+Base Vectorial
 
 ↓
 
-Respuesta al usuario
+Embeddings OpenAI
+
+↓
+
+Documentación indexada desde GitHub
+
+↓
+
+Respuesta fundamentada al usuario
 
 ---
+
+Proceso de indexación documental
+
+GitHub
+
+↓
+
+Cargador Documental GitHub
+
+↓
+
+Embeddings OpenAI
+
+↓
+
+RAG Indexación
+
+↓
+
+Base Vectorial
 
 ## Documentos utilizados
 
@@ -131,3 +171,97 @@ Respuesta al usuario
 - El sistema depende de la calidad de los documentos cargados.
 - No sustituye una auditoría profesional.
 - Requiere mantener actualizada la documentación.
+
+- ---
+
+## Organización del repositorio
+
+El proyecto utiliza GitHub como repositorio centralizado para almacenar todos los elementos relacionados con el desarrollo del asistente Compliance MIDTECH.
+
+La estructura del repositorio se ha diseñado para separar claramente la documentación técnica, la base documental utilizada por el sistema RAG, los workflows de n8n y las evidencias generadas durante las pruebas.
+
+### Estructura principal
+
+- docs: documentación técnica y funcional del proyecto.
+- diagramas: diagramas de arquitectura y representación de flujos.
+- evidencias: capturas utilizadas para validar el funcionamiento del sistema.
+- prompts: instrucciones y configuraciones utilizadas por el asistente.
+- rag: documentación normativa y corporativa utilizada por la base de conocimiento.
+- workflows: exportaciones de los flujos desarrollados en n8n.
+- README.md: documento principal de presentación del proyecto.
+
+Esta organización facilita la trazabilidad, el mantenimiento y la revisión del proyecto por parte del evaluador.
+
+---
+
+## Tecnologías utilizadas
+
+### OpenAI GPT-4o
+
+Modelo de lenguaje utilizado para interpretar consultas, analizar documentación recuperada mediante RAG y generar respuestas contextualizadas relacionadas con compliance y ciberseguridad.
+
+### n8n
+
+Plataforma de automatización utilizada para construir y orquestar todos los flujos del proyecto mediante una interfaz visual basada en nodos.
+
+### GitHub
+
+Repositorio utilizado para almacenar la base documental RAG, los workflows, las evidencias y la documentación técnica del proyecto.
+
+### Embeddings OpenAI
+
+Servicio utilizado para transformar documentos en representaciones vectoriales que permiten realizar búsquedas semánticas dentro de la base documental.
+
+### Retrieval-Augmented Generation (RAG)
+
+Arquitectura utilizada para recuperar información relevante desde documentos corporativos antes de generar la respuesta final, mejorando la precisión y la trazabilidad del asistente.
+
+---
+
+## Workflow implementado
+
+El workflow principal desarrollado en n8n se encuentra disponible en la carpeta workflows del repositorio.
+
+Este flujo implementa dos procesos diferenciados:
+
+### Flujo de consulta
+
+Chat Usuario
+
+↓
+
+Asistente MIDTECH
+
+↓
+
+RAG - Consulta Documental
+
+↓
+
+OpenAI GPT-4o
+
+↓
+
+Respuesta al usuario
+
+### Flujo de indexación
+
+GitHub
+
+↓
+
+Cargador Documental GitHub
+
+↓
+
+Embeddings OpenAI
+
+↓
+
+RAG Indexación
+
+↓
+
+Base Vectorial
+
+La arquitectura permite separar el proceso de construcción de la base de conocimiento del proceso de consulta realizado por los usuarios.
