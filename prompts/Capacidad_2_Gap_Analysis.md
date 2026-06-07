@@ -11,7 +11,7 @@ Capacidad 2 - Detección de riesgos e incumplimientos.
 
 - Modelo: GPT-4o
 - Orquestación: n8n
-- Base documental: RAG (Google Drive + Embeddings)
+- Base documental: RAG (GitHub + OpenAI Embeddings)
 
 ---
 
@@ -34,7 +34,7 @@ Para cada incumplimiento detectado debes generar una entrada estructurada con lo
 - Criticidad.
 - Referencia normativa.
 
-Debes basarte únicamente en la información disponible en la política y en los documentos normativos recuperados por el sistema RAG.
+Debes basarte únicamente en la documentación recuperada desde la base de conocimiento RAG, incluyendo la política de seguridad y los documentos normativos indexados en el repositorio GitHub.
 
 No debes asumir la existencia de controles que no estén documentados.
 
