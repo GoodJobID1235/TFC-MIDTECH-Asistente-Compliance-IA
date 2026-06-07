@@ -10,13 +10,13 @@ Capacidad 4 - Propuestas de mejora.
 
 - Modelo: GPT-4o
 - Orquestación: n8n
-- Base documental: RAG (Google Drive + Embeddings)
+- Base documental: RAG (GitHub + OpenAI Embeddings)
 
 ---
 
 ## Objetivo del prompt
 
-Generar propuestas de mejora para la política de seguridad de MIDTECH S.A. basándose en las carencias detectadas durante el análisis documental y el gap analysis.
+Generar propuestas de mejora para la política de seguridad de MIDTECH S.A. basándose en las carencias identificadas mediante la documentación recuperada desde la base de conocimiento RAG.
 
 Las recomendaciones deben estar priorizadas y justificadas mediante referencias normativas.
 
