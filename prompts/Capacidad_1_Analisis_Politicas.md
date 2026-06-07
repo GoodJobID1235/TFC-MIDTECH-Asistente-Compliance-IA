@@ -11,7 +11,7 @@ Capacidad 1 - Análisis de políticas de seguridad.
 
 - Modelo: GPT-4o
 - Orquestación: n8n
-- Base documental: RAG (Google Drive + Embeddings)
+-Base documental: RAG (GitHub + OpenAI Embeddings)
 
 ---
 
@@ -19,8 +19,7 @@ Capacidad 1 - Análisis de políticas de seguridad.
 
 Analizar la política de seguridad de MIDTECH S.A. identificando las áreas de seguridad cubiertas, el nivel de detalle existente y las áreas que no están contempladas o presentan información insuficiente.
 
-El análisis debe basarse exclusivamente en el contenido de la política cargada por el usuario.
-
+El análisis debe basarse exclusivamente en la documentación recuperada desde la base de conocimiento RAG y asociada a la política de seguridad analizada.
 ---
 
 ## Texto del prompt de sistema
